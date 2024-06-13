@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "express": "^4.19.2",
+    "puppeteer": "^22.11.0",
+    "puppeteer-core": "^22.11.0"
+  },
+  "scripts": {
+    "start": "node index.js"
+  }
+}
