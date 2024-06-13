@@ -5,7 +5,7 @@
     "puppeteer-core": "^22.11.0"
   },
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
     "install-browser": "npx puppeteer browsers install chrome",
     "build": "concurrently \"npm:install-browser\" \"npm:start\""
   }
