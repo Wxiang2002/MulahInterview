@@ -8,5 +8,8 @@
     "start": "node index.js",
     "install-browser": "npx puppeteer browsers install chrome",
     "build": "concurrently \"npm:install-browser\" \"npm:start\""
-  }
+  },
+  "devDependencies": {
+    "concurrently": "^6.5.1"
+}
 }
