@@ -6,5 +6,7 @@
   },
   "scripts": {
     "start": "node index.js"
+    "install-browser": "npx puppeteer browsers install chrome",
+    "build": "concurrently \"npm:install-browser\" \"npm:start\""
   }
 }
