@@ -3,46 +3,35 @@
 $url = "https://www.theverge.com/";
 
 function fetchHeadlines($url) {
-    // Get the HTML content of the URL
     $htmlContent = file_get_contents($url);
     if ($htmlContent === FALSE) {
         return [];
     }
 
-    // Create a new DOMDocument
     $dom = new DOMDocument();
 
-    // Suppress errors due to malformed HTML
     libxml_use_internal_errors(true);
 
-    // Load the HTML into the DOMDocument
     $dom->loadHTML($htmlContent);
 
-    // Restore error handling
     libxml_clear_errors();
 
-    // Create a new DOMXPath
     $xpath = new DOMXPath($dom);
-
-    // Query for headline elements
+    
     $headlineNodes = $xpath->query('//h2[contains(@class, "font-polysans")]/a');
     $datetimeNodes = $xpath->query('//div[contains(@class, "text-gray-63")]/time');
 
-    // Array to hold the headlines
     $headlines = [];
 
-    // Iterate over the headline elements
     foreach ($headlineNodes as $index => $headlineNode) {
         $title = trim($headlineNode->textContent);
         $href = $headlineNode->getAttribute('href');
         $datetime = $datetimeNodes->item($index) ? $datetimeNodes->item($index)->getAttribute('datetime') : null;
 
-        // Convert relative URL to absolute URL
         if (strpos($href, 'http') !== 0) {
             $href = rtrim($url, '/') . '/' . ltrim($href, '/');
         }
 
-        // Filter by date
         if ($datetime && strtotime($datetime) >= strtotime('2022-01-01')) {
             $headlines[] = ['title' => $title, 'url' => $href, 'datetime' => $datetime];
         }
